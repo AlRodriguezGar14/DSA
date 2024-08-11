@@ -70,3 +70,13 @@ void append_or_replace(t_Array *arr, int new_value, int index) {
 	arr->len = new_arr->len;
 	free(new_arr);
 }
+
+t_Result get_at(t_Array *arr, int idx) {
+
+  t_Result res = {.value = 0, .error = true};
+  if (idx >= arr->len || idx < 0)
+    return res;
+  res.error = false;
+  res.value = arr->content[idx];
+  return res;
+}

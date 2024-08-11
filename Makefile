@@ -1,4 +1,4 @@
-CXX = gcc -g3 -fsanitize=address
+CXX = gcc -g3 
 
 CXXFLAGS = -Wall -Wextra -Werror -I ./
 
