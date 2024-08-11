@@ -6,7 +6,8 @@ t_Array *new_array(int len) {
 		goto error_exit;
 
 	new_arr->len = len;
-	new_arr->content = malloc(len * sizeof(int));
+	new_arr->capacity = len * 2;
+	new_arr->content = malloc(new_arr->capacity * sizeof(int));
 	if (new_arr->content == NULL)
 		goto error_exit;
 
@@ -46,39 +47,39 @@ void print_array(t_Array *arr) {
 	printf("\n");
 }
 
+void dynamic_resize(t_Array *arr) {
+	if (arr->len + 1 >= arr->capacity) {
+		arr->capacity *= 2;
+		int *tmp = realloc(arr->content, arr->capacity * sizeof(int));
+		if (!tmp)
+			return;
+		arr->content = tmp;
+	}
+}
+
 void insert_at(t_Array *arr, int new_value, int index) {
 	if (index >= arr->len || index < 0)
 		return;
-
-	t_Array *new_arr = new_array(arr->len + 1);
-	if (!new_arr)
+	dynamic_resize(arr);
+	if (!arr->content)
 		return;
-	memmove(new_arr->content, arr->content, (index) * sizeof(int));
-	new_arr->content[index] = new_value;
-	for (int i = index; i < arr->len; ++i)
-		new_arr->content[i + 1] = arr->content[i];
-	free(arr->content);
-	arr->content = new_arr->content;
-	arr->len = new_arr->len;
-	free(new_arr);
+	for (int i = arr->len; i > index; --i)
+		arr->content[i] = arr->content[i - 1];
+	arr->content[index] = new_value;
+	arr->len++;
 }
 
 void append_or_replace(t_Array *arr, int new_value, int index) {
 	int idx = (index > arr->len || index < 0) ? arr->len : index;
-
 	if (idx != arr->len) {
 		arr->content[idx] = new_value;
 		return;
 	}
-	t_Array *new_arr = new_array(arr->len + 1);
-	if (!new_arr)
+	dynamic_resize(arr);
+	if (!arr->content)
 		return;
-	memmove(new_arr->content, arr->content, arr->len * sizeof(int));
-	new_arr->content[idx] = new_value;
-	free(arr->content);
-	arr->content = new_arr->content;
-	arr->len = new_arr->len;
-	free(new_arr);
+	arr->content[arr->len] = new_value;
+	arr->len++;
 }
 
 t_Result get_at(t_Array *arr, int idx) {

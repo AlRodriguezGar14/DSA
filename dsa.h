@@ -8,13 +8,14 @@
 
 // Array
 typedef struct {
-  int len;
-  int *content;
+	int len;
+	int capacity;
+	int *content;
 } t_Array;
 
 typedef struct {
-  int value;
-  bool error;
+	int value;
+	bool error;
 } t_Result;
 
 t_Array *new_array(int len);
