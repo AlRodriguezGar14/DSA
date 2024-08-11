@@ -3,6 +3,7 @@ CXX = gcc -g3
 CXXFLAGS = -Wall -Wextra -Werror -I ./
 
 SRCS =	main.c \
+		test_utils.c \
 		array.c \
 		mergesort.c
 

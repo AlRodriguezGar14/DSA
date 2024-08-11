@@ -1,14 +1,15 @@
 #pragma once
 
-#include <stdlib.h>
+#include <stdbool.h>
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 #include <time.h>
-#include <stdbool.h>
 
+// Array
 typedef struct {
-	int len;
-	int *content;
+  int len;
+  int *content;
 } t_Array;
 
 typedef struct {
@@ -23,3 +24,6 @@ void print_array(t_Array *arr);
 void append_or_replace(t_Array *arr, int new_value, int index);
 void insert_at(t_Array *arr, int new_value, int index);
 t_Result get_at(t_Array *arr, int idx);
+
+// Test utils
+void test_array();
