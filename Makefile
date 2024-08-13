@@ -6,7 +6,8 @@ SRCS =	main.c \
 		test_utils.c \
 		array.c \
 		mergesort.c \
-		quicksort.c
+		quicksort.c \
+		binary_search.c
 
 OBJS = $(SRCS:.c=.o)
 

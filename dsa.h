@@ -32,7 +32,11 @@ void merge_sort(int *arr, int start, int end);
 // quicksort
 void quicksort(int *arr, int start, int end);
 
+// binary search
+int binary_search(int *arr, int len, int target);
+
 // Test utils
 void test_array();
 void test_merge_sort();
 void test_quicksort();
+void test_binary_search();
