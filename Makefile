@@ -5,7 +5,8 @@ CXXFLAGS = -Wall -Wextra -Werror -I ./
 SRCS =	main.c \
 		test_utils.c \
 		array.c \
-		mergesort.c
+		mergesort.c \
+		quicksort.c
 
 OBJS = $(SRCS:.c=.o)
 

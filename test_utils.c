@@ -48,3 +48,32 @@ void test_merge_sort() {
 	}
 	printf("\n");
 }
+
+void test_quicksort() {
+	srand(time(0));
+
+	int arr[50];
+	for (int i = 0; i < 50; ++i) {
+		arr[i] = rand() % 100;
+	}
+
+	puts("before quicksort():");
+	for (int i = 0; i < 50; ++i) {
+		printf("%d", arr[i]);
+		if (i < 49)
+			printf(" ");
+	}
+	printf("\n");
+
+	// end is not the length but the last index
+	// merge_sort(arr, 0, 49);
+	quicksort(arr, 0, sizeof(arr) / sizeof(int) - 1);
+
+	puts("after quicksort():");
+	for (int i = 0; i < 50; ++i) {
+		printf("%d", arr[i]);
+		if (i < 49)
+			printf(" ");
+	}
+	printf("\n");
+}

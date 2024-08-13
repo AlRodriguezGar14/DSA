@@ -29,6 +29,10 @@ t_Result get_at(t_Array *arr, int idx);
 // merge sort
 void merge_sort(int *arr, int start, int end);
 
+// quicksort
+void quicksort(int *arr, int start, int end);
+
 // Test utils
 void test_array();
 void test_merge_sort();
+void test_quicksort();

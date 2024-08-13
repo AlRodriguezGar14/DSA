@@ -30,7 +30,9 @@ void merge_sort(int *arr, int start, int end) {
 	if (start >= end)
 		return;
 
-	int middle = start + (end - end) / 2; // prevent int overflow
+	// end - start = length
+	// start + <- avoids potential segfaults for negative values
+	int middle = start + (end - start) / 2;
 	merge_sort(arr, start, middle);
 	merge_sort(arr, middle + 1, end);
 	merge(arr, start, middle, end);
