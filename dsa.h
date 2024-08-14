@@ -35,8 +35,18 @@ void quicksort(int *arr, int start, int end);
 // binary search
 int binary_search(int *arr, int len, int target);
 
+// binary search tree
+//
+typedef struct s_Node {
+
+	int id;
+	struct s_Node *left;
+	struct s_Node *right;
+} t_Node;
+
 // Test utils
 void test_array();
 void test_merge_sort();
 void test_quicksort();
 void test_binary_search();
+void test_bst();

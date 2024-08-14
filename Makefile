@@ -7,7 +7,8 @@ SRCS =	main.c \
 		array.c \
 		mergesort.c \
 		quicksort.c \
-		binary_search.c
+		binary_search.c \
+		bst.c
 
 OBJS = $(SRCS:.c=.o)
 
@@ -32,6 +33,10 @@ fclean: clean
 	@rm -f $(TARGET)
 
 re: fclean all
+
+sanitize: fclean $(OBJS)
+	@echo "Compiling with fsanitize..."
+	$(CXX) $(CXXFLAGS) -fsanitize=address -o $(TARGET) $(OBJS)
 
 .PHONY: all clean fclean re
 	

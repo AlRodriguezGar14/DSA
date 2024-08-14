@@ -5,7 +5,8 @@ int main() {
 	// test_array();
 	// test_merge_sort();
 	// test_quicksort();
-	test_binary_search();
+	// test_binary_search();
+	test_bst();
 
 	return 0;
 }
