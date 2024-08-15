@@ -36,7 +36,6 @@ void quicksort(int *arr, int start, int end);
 int binary_search(int *arr, int len, int target);
 
 // binary search tree
-//
 typedef struct s_Node {
 
 	int id;
@@ -44,9 +43,21 @@ typedef struct s_Node {
 	struct s_Node *right;
 } t_Node;
 
+t_Node *new_node(int id);
+t_Node *bst_insert(t_Node *root, int id);
+bool bst_find(t_Node *root, int id);
+t_Node *bst_get(t_Node *root, int id);
+int bst_smallest_value(t_Node *root);
+int bst_largest_value(t_Node *root);
+t_Node *bst_smallest_node(t_Node *root);
+t_Node *bst_remove_node(t_Node *root, int id);
+void free_tree(t_Node *root);
+void print_tree(t_Node *root, int space);
+
 // Test utils
 void test_array();
 void test_merge_sort();
 void test_quicksort();
 void test_binary_search();
+void test_bst();
 void test_bst();

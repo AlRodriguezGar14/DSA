@@ -85,3 +85,42 @@ void test_binary_search() {
 
 	printf("\n");
 }
+
+void test_bst() {
+	t_Node *root = new_node(10);
+
+	bst_insert(root, 12);
+	bst_insert(root, 11);
+	bst_insert(root, 15);
+	bst_insert(root, 15);
+	bst_insert(root, 5);
+	bst_insert(root, 4);
+	bst_insert(root, 2);
+	bst_insert(root, 42);
+	bst_insert(root, 9);
+	bst_insert(root, 20);
+	bst_insert(root, 14);
+	print_tree(root, 0);
+
+	printf("The search for 42 is: %b\n", bst_find(root, 42));
+	printf("The search for 24 is: %b\n", bst_find(root, 24));
+
+	t_Node *retrieved = bst_get(root, 9);
+	if (retrieved != NULL)
+		printf("Retrieved is: %d\n", retrieved->id);
+	t_Node *retrieved2 = bst_get(root, 999);
+	if (!retrieved2)
+		printf("Id 999 not found\n");
+	printf("The range of the tree is from %d to %d\n", bst_smallest_value(root),
+		   bst_largest_value(root));
+
+	puts("remove 42");
+	bst_remove_node(root, 42);
+	puts("remove 2");
+	bst_remove_node(root, 2);
+	puts("remove 15");
+	bst_remove_node(root, 15);
+
+	print_tree(root, 0);
+	free_tree(root);
+}

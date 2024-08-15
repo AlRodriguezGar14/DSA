@@ -41,6 +41,60 @@ t_Node *bst_get(t_Node *root, int id) {
 		return root;
 }
 
+int bst_smallest_value(t_Node *root) {
+	t_Node *curr = root;
+
+	while (curr != NULL && curr->left != NULL) {
+		curr = curr->left;
+	}
+	return curr->id;
+}
+
+int bst_largest_value(t_Node *root) {
+	t_Node *curr = root;
+
+	while (curr && curr->right) {
+		curr = curr->right;
+	}
+	return curr->id;
+}
+
+t_Node *bst_smallest_node(t_Node *root) {
+	t_Node *curr = root;
+
+	while (curr != NULL && curr->left != NULL) {
+		curr = curr->left;
+	}
+	return curr;
+}
+
+t_Node *bst_remove_node(t_Node *root, int id) {
+	if (!root)
+		return NULL;
+
+	if (id > root->id)
+		root->right = bst_remove_node(root->right, id);
+	else if (id < root->id)
+		root->left = bst_remove_node(root->left, id);
+	else {
+		if (!root->left) {
+			t_Node *tmp = root->right;
+			free(root);
+			return tmp;
+		}
+		if (!root->right) {
+			t_Node *tmp = root->left;
+			free(root);
+			return tmp;
+		}
+		t_Node *min = bst_smallest_node(root->right);
+		root->id = min->id;
+		root->right = bst_remove_node(root->right, min->id);
+	}
+
+	return root;
+}
+
 void free_tree(t_Node *root) {
 	if (root != NULL) {
 		free_tree(root->left);
@@ -51,46 +105,11 @@ void free_tree(t_Node *root) {
 
 void print_tree(t_Node *root, int space) {
 
-	int i;
-
 	if (root == NULL)
 		return;
 
 	space += 8;
-
 	print_tree(root->right, space);
-
-	printf("\n");
-	for (i = 10; i < space; i++)
-		printf("~");
-	printf("[%d]\n", root->id);
-
+	printf("\n%*s[%d]\n", space, "", root->id);
 	print_tree(root->left, space);
-}
-
-void test_bst() {
-	t_Node *root = new_node(10);
-
-	bst_insert(root, 11);
-	bst_insert(root, 15);
-	bst_insert(root, 15);
-	bst_insert(root, 5);
-	bst_insert(root, 4);
-	bst_insert(root, 2);
-	bst_insert(root, 42);
-	bst_insert(root, 9);
-	bst_insert(root, 20);
-	bst_insert(root, 14);
-	print_tree(root, 0);
-
-	printf("The search for 42 is: %b\n", bst_find(root, 42));
-	printf("The search for 24 is: %b\n", bst_find(root, 24));
-
-	t_Node *retrieved = bst_get(root, 9);
-	if (retrieved != NULL)
-		printf("Retrieved is: %d\n", retrieved->id);
-	t_Node *retrieved2 = bst_get(root, 999);
-	if (!retrieved2)
-		printf("Id 999 not found\n");
-	free_tree(root);
 }
