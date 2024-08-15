@@ -100,6 +100,9 @@ void test_bst() {
 	bst_insert(root, 9);
 	bst_insert(root, 20);
 	bst_insert(root, 14);
+	printf("Tree content (in array form): ");
+	bst_traverse(root);
+	puts("");
 	print_tree(root, 0);
 
 	printf("The search for 42 is: %b\n", bst_find(root, 42));
@@ -121,6 +124,9 @@ void test_bst() {
 	puts("remove 15");
 	bst_remove_node(root, 15);
 
+	printf("Tree content (in array form): ");
+	bst_traverse(root);
+	puts("");
 	print_tree(root, 0);
 	free_tree(root);
 }

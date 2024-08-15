@@ -95,6 +95,14 @@ t_Node *bst_remove_node(t_Node *root, int id) {
 	return root;
 }
 
+void bst_traverse(t_Node *root) {
+	if (!root)
+		return;
+	bst_traverse(root->left);
+	printf("%d ", root->id);
+	bst_traverse(root->right);
+}
+
 void free_tree(t_Node *root) {
 	if (root != NULL) {
 		free_tree(root->left);

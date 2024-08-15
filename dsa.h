@@ -53,6 +53,7 @@ t_Node *bst_smallest_node(t_Node *root);
 t_Node *bst_remove_node(t_Node *root, int id);
 void free_tree(t_Node *root);
 void print_tree(t_Node *root, int space);
+void bst_traverse(t_Node *root);
 
 // Test utils
 void test_array();
