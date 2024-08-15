@@ -5,6 +5,7 @@ CXXFLAGS = -Wall -Wextra -Werror -I ./
 SRCS =	main.c \
 		test_utils.c \
 		array.c \
+		queue.c \
 		mergesort.c \
 		quicksort.c \
 		binary_search.c \

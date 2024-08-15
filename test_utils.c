@@ -130,3 +130,27 @@ void test_bst() {
 	print_tree(root, 0);
 	free_tree(root);
 }
+
+void test_queue() {
+	t_queue *Q = new_queue();
+
+	enqueue(Q, 5);
+	enqueue(Q, 500);
+
+	print_queue(Q);
+	puts("Dequeue from Q");
+	dequeue(Q);
+	print_queue(Q);
+	puts("Dequeue from Q");
+	dequeue(Q);
+	print_queue(Q);
+	puts("Dequeue from Q");
+	dequeue(Q);
+	print_queue(Q);
+	puts("Enqueue to Q");
+	enqueue(Q, 42);
+	enqueue(Q, 4224);
+	enqueue(Q, 2442);
+	print_queue(Q);
+	free_q(Q);
+}

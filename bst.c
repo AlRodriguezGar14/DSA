@@ -95,6 +95,7 @@ t_Node *bst_remove_node(t_Node *root, int id) {
 	return root;
 }
 
+// Depth First Search
 void bst_traverse(t_Node *root) {
 	if (!root)
 		return;

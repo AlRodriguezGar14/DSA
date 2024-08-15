@@ -26,6 +26,25 @@ void append_or_replace(t_Array *arr, int new_value, int index);
 void insert_at(t_Array *arr, int new_value, int index);
 t_Result get_at(t_Array *arr, int idx);
 
+// Queue
+typedef struct s_queue_node {
+	int value;
+	struct s_queue_node *next;
+	struct s_queue_node *prev;
+} t_queue_node;
+
+typedef struct s_queue {
+	t_queue_node *head;
+	t_queue_node *tail;
+	int len;
+} t_queue;
+
+t_queue *new_queue();
+int enqueue(t_queue *queue, int value);
+int dequeue(t_queue *queue);
+void print_queue(t_queue *queue);
+void free_q(t_queue *queue);
+
 // merge sort
 void merge_sort(int *arr, int start, int end);
 
@@ -53,7 +72,7 @@ t_Node *bst_smallest_node(t_Node *root);
 t_Node *bst_remove_node(t_Node *root, int id);
 void free_tree(t_Node *root);
 void print_tree(t_Node *root, int space);
-void bst_traverse(t_Node *root);
+void bst_traverse(t_Node *root); // depth first search
 
 // Test utils
 void test_array();
@@ -62,3 +81,4 @@ void test_quicksort();
 void test_binary_search();
 void test_bst();
 void test_bst();
+void test_queue();

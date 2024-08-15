@@ -6,7 +6,8 @@ int main() {
 	// test_merge_sort();
 	// test_quicksort();
 	// test_binary_search();
-	test_bst();
+	// test_bst();
+	test_queue();
 
 	return 0;
 }
