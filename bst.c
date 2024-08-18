@@ -104,6 +104,31 @@ void bst_traverse(t_Node *root) {
 	bst_traverse(root->right);
 }
 
+void breadth_first_search(t_Node *root) {
+	t_NQueue *queue = new_nqueue();
+
+	if (root)
+		nenqueue(queue, root);
+
+	int level = 0;
+	while (queue->len) {
+		int len = queue->len;
+		printf("level: %d ->", level);
+		for (int i = 0; i < len; ++i) {
+			if (queue->head->value->left)
+				nenqueue(queue, queue->head->value->left);
+			if (queue->head->value->right)
+				nenqueue(queue, queue->head->value->right);
+			printf(" %d", queue->head->value->id);
+			ndequeue(queue);
+		}
+		puts("");
+		level++;
+	}
+
+	free_nq(queue);
+}
+
 void free_tree(t_Node *root) {
 	if (root != NULL) {
 		free_tree(root->left);

@@ -128,6 +128,7 @@ void test_bst() {
 	bst_traverse(root);
 	puts("");
 	print_tree(root, 0);
+	breadth_first_search(root);
 	free_tree(root);
 }
 
