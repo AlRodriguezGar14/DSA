@@ -31,19 +31,19 @@ typedef struct s_queue_node {
 	int value;
 	struct s_queue_node *next;
 	struct s_queue_node *prev;
-} t_queue_node;
+} t_Queue_node;
 
 typedef struct s_queue {
-	t_queue_node *head;
-	t_queue_node *tail;
+	t_Queue_node *head;
+	t_Queue_node *tail;
 	int len;
-} t_queue;
+} t_Queue;
 
-t_queue *new_queue();
-int enqueue(t_queue *queue, int value);
-int dequeue(t_queue *queue);
-void print_queue(t_queue *queue);
-void free_q(t_queue *queue);
+t_Queue *new_queue();
+int enqueue(t_Queue *queue, int value);
+int dequeue(t_Queue *queue);
+void print_queue(t_Queue *queue);
+void free_q(t_Queue *queue);
 
 // merge sort
 void merge_sort(int *arr, int start, int end);
@@ -73,6 +73,26 @@ t_Node *bst_remove_node(t_Node *root, int id);
 void free_tree(t_Node *root);
 void print_tree(t_Node *root, int space);
 void bst_traverse(t_Node *root); // depth first search
+void breadth_first_search(t_Node *root);
+
+// Nodes Queue
+typedef struct s_nodes_queue_node {
+	t_Node *value;
+	struct s_nodes_queue_node *next;
+	struct s_nodes_queue_node *prev;
+} t_NQueue_node;
+
+typedef struct t_nodes_queue {
+	t_NQueue_node *head;
+	t_NQueue_node *tail;
+	int len;
+} t_NQueue;
+
+t_NQueue *new_nqueue();
+int nenqueue(t_NQueue *queue, t_Node *value);
+int ndequeue(t_NQueue *queue);
+void print_nqueue(t_NQueue *queue);
+void free_nq(t_NQueue *queue);
 
 // Test utils
 void test_array();
@@ -81,4 +101,5 @@ void test_quicksort();
 void test_binary_search();
 void test_bst();
 void test_bst();
-void test_queue();
+void test_Queue();
+void test_nqueue();

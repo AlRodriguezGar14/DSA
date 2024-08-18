@@ -1,8 +1,8 @@
 #include "dsa.h"
 #include <stdlib.h>
 
-t_Queue *new_queue() {
-	t_Queue *Q = malloc(sizeof(t_Queue));
+t_NQueue *new_nqueue() {
+	t_NQueue *Q = malloc(sizeof(t_NQueue));
 	if (!Q)
 		return NULL;
 
@@ -13,15 +13,23 @@ t_Queue *new_queue() {
 	return Q;
 }
 
-int enqueue(t_Queue *queue, int value) {
+int nenqueue(t_NQueue *queue, t_Node *value) {
 	if (!queue)
 		return -1;
 
-	t_Queue_node *node = malloc(sizeof(t_Queue_node));
+	t_NQueue_node *node = malloc(sizeof(t_NQueue_node));
 	if (!node)
 		return -1;
 
-	node->value = value;
+	t_Node *value_copy = malloc(sizeof(t_Node));
+	if (!value_copy) {
+		free(node);
+		return -1;
+	}
+	value_copy->id = value->id;
+	value_copy->left = value->left;
+	value_copy->right = value->right;
+	node->value = value_copy;
 	node->next = NULL;
 	node->prev = queue->tail;
 
@@ -35,39 +43,41 @@ int enqueue(t_Queue *queue, int value) {
 	return 0;
 }
 
-int dequeue(t_Queue *queue) {
+int ndequeue(t_NQueue *queue) {
 	if (!queue || queue->len < 1)
 		return -1;
 
-	t_Queue_node *tmp = queue->head;
+	t_NQueue_node *tmp = queue->head;
 	queue->head = tmp->next;
 	if (queue->head) {
 		queue->head->prev = NULL;
 	} else {
 		queue->tail = NULL;
 	}
+	free(tmp->value);
 	free(tmp);
 	queue->len--;
 	return 0;
 }
 
-void print_queue(t_Queue *queue) {
+void print_nqueue(t_NQueue *queue) {
 	if (!queue || queue->len < 1)
 		return;
-	t_Queue_node *head = queue->head;
+	t_NQueue_node *head = queue->head;
 	while (head != NULL) {
-		printf("Node value: %d\n", head->value);
+		printf("Node id: %d\n", head->value->id);
 		head = head->next;
 	}
 	printf("Queue len: %d\n", queue->len);
 }
 
-void free_q(t_Queue *queue) {
-	t_Queue_node *current = queue->head;
-	t_Queue_node *next;
+void free_nq(t_NQueue *queue) {
+	t_NQueue_node *current = queue->head;
+	t_NQueue_node *next;
 
 	while (current) {
 		next = current->next;
+		free(current->value);
 		free(current);
 		current = next;
 	}

@@ -132,7 +132,7 @@ void test_bst() {
 }
 
 void test_queue() {
-	t_queue *Q = new_queue();
+	t_Queue *Q = new_queue();
 
 	enqueue(Q, 5);
 	enqueue(Q, 500);
@@ -153,4 +153,41 @@ void test_queue() {
 	enqueue(Q, 2442);
 	print_queue(Q);
 	free_q(Q);
+}
+
+void test_nqueue() {
+	t_NQueue *Q = new_nqueue();
+
+	t_Node *node1 = new_node(5);
+	t_Node *node2 = new_node(500);
+	t_Node *node3 = new_node(42);
+	t_Node *node4 = new_node(4224);
+	t_Node *node5 = new_node(2442);
+
+	nenqueue(Q, node1);
+	nenqueue(Q, node2);
+
+	print_nqueue(Q);
+	puts("Dequeue from Q");
+	ndequeue(Q);
+	print_nqueue(Q);
+	puts("Dequeue from Q");
+	ndequeue(Q);
+	print_nqueue(Q);
+	puts("Dequeue from Q");
+	ndequeue(Q);
+	print_nqueue(Q);
+	puts("Enqueue to Q");
+	nenqueue(Q, node3);
+	nenqueue(Q, node4);
+	nenqueue(Q, node5);
+	print_nqueue(Q);
+	free_nq(Q);
+
+	// Don't forget to free the nodes after using them
+	free(node1);
+	free(node2);
+	free(node3);
+	free(node4);
+	free(node5);
 }
