@@ -96,12 +96,31 @@ t_Node *bst_remove_node(t_Node *root, int id) {
 }
 
 // Depth First Search
+/* DFS: display the tree ordered */
 void bst_traverse(t_Node *root) {
 	if (!root)
 		return;
 	bst_traverse(root->left);
 	printf("%d ", root->id);
 	bst_traverse(root->right);
+}
+
+/* BFS: display the tree by levels */
+static inline void enqueue_children(t_NQueue *queue, t_Node *current) {
+	if (current->left)
+		nenqueue(queue, current->left);
+	if (current->right)
+		nenqueue(queue, current->right);
+}
+
+static inline void process_level(t_NQueue *queue, int len, int level) {
+	printf("level: %d ->", level);
+	for (int i = 0; i < len; ++i) {
+		enqueue_children(queue, queue->head->value);
+		printf(" %d", queue->head->value->id);
+		ndequeue(queue);
+	}
+	puts("");
 }
 
 void breadth_first_search(t_Node *root) {
@@ -112,18 +131,7 @@ void breadth_first_search(t_Node *root) {
 
 	int level = 0;
 	while (queue->len) {
-		int len = queue->len;
-		printf("level: %d ->", level);
-		for (int i = 0; i < len; ++i) {
-			if (queue->head->value->left)
-				nenqueue(queue, queue->head->value->left);
-			if (queue->head->value->right)
-				nenqueue(queue, queue->head->value->right);
-			printf(" %d", queue->head->value->id);
-			ndequeue(queue);
-		}
-		puts("");
-		level++;
+		process_level(queue, queue->len, level++);
 	}
 
 	free_nq(queue);
