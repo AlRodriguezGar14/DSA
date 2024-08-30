@@ -1,0 +1,20 @@
+
+#!/bin/bash
+
+# Number of snowflakes to generate
+num_snowflakes=100
+
+# Output file
+outfile="100_snowflakes"
+
+# Write the number of snowflakes to the file
+echo $num_snowflakes > $outfile
+
+# Generate the snowflakes
+for ((i=0; i<$num_snowflakes; i++))
+do
+    snowflake=$(shuf -i 1-100 -n 6 | tr '\n' ' ')
+    echo $snowflake >> $outfile
+done
+```
+
