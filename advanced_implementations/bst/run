@@ -1,0 +1,7 @@
+#!/bin/bash
+
+set -xe
+
+gcc -Wall -Wextra -Werror -g3 -o bst bst.c
+
+valgrind ./bst
