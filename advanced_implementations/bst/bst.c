@@ -38,6 +38,79 @@ add_node (t_TreeNode *root, int value)
   return root;
 }
 
+/*  Visual explanation of the logic for removing a node:
+ graph TD
+    A[Start: delete_node] --> B{Is root NULL?}
+    B -->|Yes| C[Return NULL]
+    B -->|No| D{Is value > root->value?}
+    D -->|Yes| E[Recursively delete from right subtree]
+    D -->|No| F{Is value < root->value?}
+    F -->|Yes| G[Recursively delete from left subtree]
+    F -->|No| H{Node found: value == root->value}
+    H --> I{Does node have left child?}
+    I -->|No| J[Replace with right child]
+    I -->|Yes| K{Does node have right child?}
+    K -->|No| L[Replace with left child]
+    K -->|Yes| M[Node has two children]
+    M --> N[Find inorder successor]
+    N --> O[Replace node's value with successor's value]
+    O --> P[Recursively delete successor from right subtree]
+    J --> Q[Return modified root]
+    L --> Q
+    P --> Q
+    E --> Q
+    G --> Q
+ *
+ * */
+
+t_TreeNode *
+smallest_node (t_TreeNode *root)
+{
+  t_TreeNode *curr = root;
+
+  while (curr && curr->left)
+    curr = curr->left;
+  return curr;
+}
+
+t_TreeNode *
+delete_node (t_TreeNode *root, int value)
+{
+  if (root == NULL)
+    return NULL;
+
+  if (value > root->value)
+    root->right = delete_node (root->right, value);
+  else if (value < root->value)
+    root->left = delete_node (root->left, value);
+  else
+    {
+      // Node found, perform deletion
+      if (root->left == NULL)
+	{
+	  t_TreeNode *tmp = root->right;
+	  free (root);
+	  return tmp;
+	}
+      if (root->right == NULL)
+	{
+	  t_TreeNode *tmp = root->left;
+	  free (root);
+	  return tmp;
+	}
+      /*
+       * Node with two children:
+       * Find the smallest node in the right subtree. Replace the node to delete
+       * with this one - remove the successor from the current position
+       * */
+      t_TreeNode *min = smallest_node (root->right);
+      root->value = min->value;
+      root->right = delete_node (root->right, min->value);
+    }
+
+  return root;
+}
+
 void
 free_tree (t_TreeNode *root)
 {
@@ -49,6 +122,7 @@ free_tree (t_TreeNode *root)
     }
 }
 
+/* in order */
 void
 bst_print_traverse (t_TreeNode *root)
 {
@@ -86,6 +160,9 @@ main ()
   add_node (head, 12);
   add_node (head, 2);
 
+  bst_print_traverse (head);
+  puts ("");
+  delete_node (head, 24);
   bst_print_traverse (head);
 
   printf ("\n");
