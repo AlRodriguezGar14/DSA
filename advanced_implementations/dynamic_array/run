@@ -1,0 +1,5 @@
+#!/bin/bash
+
+set -xe
+
+gcc -Wall -Wextra -Werror -pedantic -std=c2x -o darray dynamic_array.c
