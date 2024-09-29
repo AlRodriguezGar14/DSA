@@ -85,50 +85,90 @@ new_node (int value)
 }
 
 void
-left_rotate (RBNode *child, RBNode *parent, RBNode *grandparent, RBNode *uncle)
+left_rotate (RBNode *node)
 {
-  RBNode *tmp = grandparent->right;
-  grandparent->right = tmp->left;
-  if (grandparent->right != NULL)
+  RBNode *tmp = node->right;
+  node->right = tmp->left;
+  if (node->right != NULL)
   {
-    grandparent->right->parent = grandparent;
-    grandparent->right->side = RIGHT;
+    node->right->parent = node;
+    node->right->side = RIGHT;
   }
-  if (!grandparent->parent) // This is the root position
+  if (!node->parent) // This is the root position
   {
     tmp->parent = NULL;
     tmp->side = ROOT;
-    grandparent = tmp;
+    node = tmp;
   }
   else
   {
-    tmp->parent = grandparent->parent;
-    if (grandparent->side == LEFT)
+    tmp->parent = node->parent;
+    if (node->side == LEFT)
     {
       tmp->side = LEFT;
       tmp->parent->left = tmp;
     }
-    else if (grandparent->side == RIGHT)
+    else if (node->side == RIGHT)
     {
       tmp->side = RIGHT;
       tmp->parent->right = tmp;
     }
   }
-  tmp->left = grandparent;
-  grandparent->side = LEFT;
-  grandparent->parent = tmp;
+  tmp->left = node;
+  node->side = LEFT;
+  node->parent = tmp;
+}
+
+void
+right_rotate (RBNode *node)
+{
+  RBNode *tmp = node->left;
+  node->left = tmp->right;
+  if (node->left != NULL)
+  {
+    node->left->parent = node;
+    node->left->side = LEFT;
+  }
+  if (!node->parent) // This is the root position
+  {
+    tmp->parent = NULL;
+    tmp->side = ROOT;
+    node = tmp;
+  }
+  else
+  {
+    tmp->parent = node->parent;
+    if (node->side == RIGHT)
+    {
+      tmp->side = RIGHT;
+      tmp->parent->right = tmp;
+    }
+    else if (node->side == LEFT)
+    {
+      tmp->side = LEFT;
+      tmp->parent->left = tmp;
+    }
+  }
+  tmp->left = node;
+  node->side = RIGHT;
+  node->parent = tmp;
 }
 
 void
 rotate (RBNode *child, RBNode *parent, RBNode *grandparent, RBNode *uncle)
 {
-  // TODO: left left
+  // left left
+  if (child->side == LEFT && parent->side == LEFT)
+  {
+    puts ("ll");
+    right_rotate (grandparent);
+  }
 
   // righ right
   if (child->side == RIGHT && parent->side == RIGHT)
   {
     puts ("rr");
-    left_rotate (child, parent, grandparent, uncle);
+    left_rotate (grandparent);
   }
 
   // TODO: left right
